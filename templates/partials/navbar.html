@@ -1,50 +1,46 @@
+{% load static %}
 {% load i18n %}
-<!-- Header -->
+<!-- Header ultra-simple -->
 <header class="fixed w-full top-0 z-50 bg-deep-carbon border-b border-gray-800">
     <div class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center">
+            <!-- Logo -->
             <div class="flex items-center">
-                <a href="{% url 'landing:home' %}" class="flex items-center">
-                    <span class="text-xl md:text-2xl font-accent font-bold text-gold-royal glow-gold">Hypergamy</span>
+                <a href="/" class="flex items-center">
+                    <img class='logo' src="{% static 'images/logo.png' %}" alt="Hypergamy Logo" class="h-8">
                 </a>
             </div>
             
-            <!-- Botón menú móvil -->
+            <!-- Menú móvil -->
             <button id="mobile-menu-btn" class="md:hidden text-soft-smoke focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
             
-            <!-- Navegación escritorio -->
+            <!-- Menú escritorio -->
             <nav class="hidden md:flex items-center space-x-6">
-                <a href="#what-is" class="text-soft-smoke hover:text-white transition-colors">{% trans "¿Qué es?" %}</a>
-                <a href="#how-it-works" class="text-soft-smoke hover:text-white transition-colors">{% trans "Sistema de Niveles" %}</a>
-                <a href="#testimonials" class="text-soft-smoke hover:text-white transition-colors">{% trans "Experiencias" %}</a>
+                <a href="#what-is" class="text-soft-smoke hover:text-white transition-colors">
+                    {% if LANGUAGE_CODE == 'es' %}¿Qué es?{% else %}What is it?{% endif %}
+                </a>
+                <a href="#how-it-works" class="text-soft-smoke hover:text-white transition-colors">
+                    {% if LANGUAGE_CODE == 'es' %}Sistema de Niveles{% else %}Level System{% endif %}
+                </a>
+                <a href="#testimonials" class="text-soft-smoke hover:text-white transition-colors">
+                    {% if LANGUAGE_CODE == 'es' %}Experiencias{% else %}Experiences{% endif %}
+                </a>
                 
-                <!-- Selector de idioma (con click) -->
-                <div class="relative language-selector">
-                    <button id="language-toggle" class="flex items-center text-soft-smoke hover:text-white transition-colors focus:outline-none">
-                        <i class="fas fa-globe mr-1"></i>
-                        <span>{% trans "Idioma" %}</span>
-                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                    </button>
-                    <div id="language-dropdown" class="absolute right-0 mt-2 w-40 bg-gray-900 rounded-md shadow-lg py-1 z-50 hidden">
-                        <form action="{% url 'set_language' %}" method="post" class="px-2 py-1">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="{{ request.path }}">
-                            {% get_current_language as CURRENT_LANGUAGE %}
-                            {% get_available_languages as LANGUAGES %}
-                            
-                            {% for lang_code, lang_name in LANGUAGES %}
-                            <button type="submit" name="language" value="{{ lang_code }}" 
-                                    class="w-full text-left px-4 py-2 text-sm hover:bg-gray-800 {% if lang_code == CURRENT_LANGUAGE %}text-gold-royal font-medium{% else %}text-gray-300{% endif %}">
-                                {{ lang_name }}
-                            </button>
-                            {% endfor %}
-                        </form>
-                    </div>
+                <a href="#contact-form" class="btn-primary px-4 py-2 rounded-full">
+                    {% if LANGUAGE_CODE == 'es' %}Registrarse{% else %}Sign up{% endif %}
+                </a>
+                
+                <!-- Enlaces idioma simplificados al máximo -->
+                <div class="ml-4 flex items-center space-x-4">
+                    <a href="/" class="block text-2xl hover:opacity-100 {% if LANGUAGE_CODE == 'es' %}opacity-100 border-b-2 border-gold-royal{% else %}opacity-50{% endif %}">
+                        🇪🇸
+                    </a>
+                    <a href="/en/" class="block text-2xl hover:opacity-100 {% if LANGUAGE_CODE == 'en' %}opacity-100 border-b-2 border-gold-royal{% else %}opacity-50{% endif %}">
+                        🇺🇸
+                    </a>
                 </div>
-                
-                <a href="#contact-form" class="btn-primary px-4 py-2 rounded-full">{% trans "Registrarse" %}</a>
             </nav>
         </div>
     </div>
@@ -52,57 +48,49 @@
     <!-- Menú móvil -->
     <div id="mobile-menu" class="hidden md:hidden w-full bg-deep-carbon border-t border-gray-800 absolute left-0">
         <div class="container mx-auto py-3 px-4 flex flex-col space-y-3">
-            <a href="#what-is" class="text-soft-smoke hover:text-white py-2">{% trans "¿Qué es?" %}</a>
-            <a href="#how-it-works" class="text-soft-smoke hover:text-white py-2">{% trans "Sistema de Niveles" %}</a>
-            <a href="#testimonials" class="text-soft-smoke hover:text-white py-2">{% trans "Experiencias" %}</a>
+            <a href="#what-is" class="text-soft-smoke hover:text-white py-2">
+                {% if LANGUAGE_CODE == 'es' %}¿Qué es?{% else %}What is it?{% endif %}
+            </a>
+            <a href="#how-it-works" class="text-soft-smoke hover:text-white py-2">
+                {% if LANGUAGE_CODE == 'es' %}Sistema de Niveles{% else %}Level System{% endif %}
+            </a>
+            <a href="#testimonials" class="text-soft-smoke hover:text-white py-2">
+                {% if LANGUAGE_CODE == 'es' %}Experiencias{% else %}Experiences{% endif %}
+            </a>
             
-            <!-- Selector de idioma para móvil -->
+            <!-- Idiomas móvil -->
             <div class="py-2">
-                <p class="text-sm text-gray-400 mb-2">{% trans "Idioma" %}:</p>
-                <form action="{% url 'set_language' %}" method="post" class="flex flex-wrap gap-2">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.path }}">
-                    {% get_current_language as CURRENT_LANGUAGE %}
-                    {% get_available_languages as LANGUAGES %}
-                    
-                    {% for lang_code, lang_name in LANGUAGES %}
-                    <button type="submit" name="language" value="{{ lang_code }}" 
-                            class="px-3 py-1 text-sm rounded-full {% if lang_code == CURRENT_LANGUAGE %}bg-gold-royal text-deep-carbon font-medium{% else %}bg-gray-800 text-gray-300{% endif %}">
-                        {{ lang_name }}
-                    </button>
-                    {% endfor %}
-                </form>
+                <p class="text-sm text-gray-400 mb-2">
+                    {% if LANGUAGE_CODE == 'es' %}Idioma{% else %}Language{% endif %}:
+                </p>
+                <div class="flex gap-4">
+                    <a href="/" class="block flex flex-col items-center">
+                        <span class="text-3xl mb-1">🇪🇸</span>
+                        <span class="text-xs {% if LANGUAGE_CODE == 'es' %}text-gold-royal font-medium{% else %}text-gray-300{% endif %}">
+                            {% if LANGUAGE_CODE == 'es' %}Español{% else %}Spanish{% endif %}
+                        </span>
+                    </a>
+                    <a href="/en/" class="block flex flex-col items-center">
+                        <span class="text-3xl mb-1">🇺🇸</span>
+                        <span class="text-xs {% if LANGUAGE_CODE == 'en' %}text-gold-royal font-medium{% else %}text-gray-300{% endif %}">
+                            {% if LANGUAGE_CODE == 'es' %}Inglés{% else %}English{% endif %}
+                        </span>
+                    </a>
+                </div>
             </div>
             
-            <a href="#contact-form" class="btn-primary px-4 py-2 rounded-full text-center">{% trans "Registrarse" %}</a>
+            <a href="#contact-form" class="btn-primary px-4 py-2 rounded-full text-center">
+                {% if LANGUAGE_CODE == 'es' %}Registrarse{% else %}Sign up{% endif %}
+            </a>
         </div>
     </div>
 </header>
 
-<!-- Script para el menú móvil y selector de idioma -->
+<!-- Script para el menú móvil -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Alternar menú móvil
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-        
-        // Selector de idioma desplegable (con click)
-        const languageToggle = document.getElementById('language-toggle');
-        const languageDropdown = document.getElementById('language-dropdown');
-        
-        if (languageToggle && languageDropdown) {
-            languageToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                languageDropdown.classList.toggle('hidden');
-            });
-            
-            // Cerrar el menú cuando se hace clic fuera
-            document.addEventListener('click', function(e) {
-                if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
-                    languageDropdown.classList.add('hidden');
-                }
-            });
-        }
     });
 </script>

@@ -25,6 +25,12 @@
     --border-color: #2A2A2A; /* Un gris oscuro para bordes sutiles */
   }
   
+
+  .logo {
+    height: 124px;
+    width: 124px;
+  }
+
   /* Clases de utilidad para colores de texto */
   .text-gold {
     color: var(--gold-royal);

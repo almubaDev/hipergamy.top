@@ -1,0 +1,83 @@
+{% load static %}
+{% load i18n %}
+<!-- Header -->
+<header class="fixed w-full top-0 z-50 bg-deep-carbon border-b border-gray-800">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/" class="flex items-center">
+                    <img class='logo' src="{% static 'images/logo.png' %}" alt="Hypergamy Logo" class="h-8">
+                </a>
+            </div>
+            
+            <!-- Botón menú móvil -->
+            <button id="mobile-menu-btn" class="md:hidden text-soft-smoke focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            
+            <!-- Navegación escritorio -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#what-is" class="text-soft-smoke hover:text-white transition-colors">{% trans "¿Qué es?" %}</a>
+                <a href="#how-it-works" class="text-soft-smoke hover:text-white transition-colors">{% trans "Sistema de Niveles" %}</a>
+                <a href="#testimonials" class="text-soft-smoke hover:text-white transition-colors">{% trans "Experiencias" %}</a>
+                
+                <a href="#contact-form" class="btn-primary px-4 py-2 rounded-full">{% trans "Registrarse" %}</a>
+                
+                <!-- Enlaces directos de idioma -->
+                <div class="flex items-center space-x-2 ml-4">
+                    {% get_current_language as CURRENT_LANGUAGE %}
+                    
+                    <!-- Español - Enlace directo a la raíz -->
+                    <a href="/" class="text-2xl {% if CURRENT_LANGUAGE == 'es' %}opacity-100{% else %}opacity-60{% endif %}" title="Español">
+                        🇪🇸
+                    </a>
+                    
+                    <!-- Inglés - Enlace directo a /en/ -->
+                    <a href="/en/" class="text-2xl {% if CURRENT_LANGUAGE == 'en' %}opacity-100{% else %}opacity-60{% endif %}" title="English">
+                        🇺🇸
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="hidden md:hidden w-full bg-deep-carbon border-t border-gray-800 absolute left-0">
+        <div class="container mx-auto py-3 px-4 flex flex-col space-y-3">
+            <a href="#what-is" class="text-soft-smoke hover:text-white py-2">{% trans "¿Qué es?" %}</a>
+            <a href="#how-it-works" class="text-soft-smoke hover:text-white py-2">{% trans "Sistema de Niveles" %}</a>
+            <a href="#testimonials" class="text-soft-smoke hover:text-white py-2">{% trans "Experiencias" %}</a>
+            
+            <!-- Enlaces de idioma para móvil -->
+            <div class="py-2">
+                <p class="text-sm text-gray-400 mb-2">{% trans "Idioma" %}:</p>
+                <div class="flex gap-4">
+                    {% get_current_language as CURRENT_LANGUAGE %}
+                    
+                    <!-- Enlaces móvil -->
+                    <a href="/" class="flex flex-col items-center">
+                        <span class="text-3xl mb-1">🇪🇸</span>
+                        <span class="text-xs {% if CURRENT_LANGUAGE == 'es' %}text-gold-royal font-medium{% else %}text-gray-300{% endif %}">Español</span>
+                    </a>
+                    
+                    <a href="/en/" class="flex flex-col items-center">
+                        <span class="text-3xl mb-1">🇺🇸</span>
+                        <span class="text-xs {% if CURRENT_LANGUAGE == 'en' %}text-gold-royal font-medium{% else %}text-gray-300{% endif %}">English</span>
+                    </a>
+                </div>
+            </div>
+            
+            <a href="#contact-form" class="btn-primary px-4 py-2 rounded-full text-center">{% trans "Registrarse" %}</a>
+        </div>
+    </div>
+</header>
+
+<!-- Script para el menú móvil -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Alternar menú móvil
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    });
+</script>

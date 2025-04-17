@@ -1,34 +1,29 @@
-# Translation for Hypergamy
+# Spanish translations for Hypergamy.
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 00:00-0400\n"
-"PO-Revision-Date: 2025-04-17 00:00-0400\n"
-"Last-Translator: DEV\n"
+"POT-Creation-Date: 2025-04-16 23:00+0000\n"
+"PO-Revision-Date: 2025-04-16 23:00+0000\n"
+"Last-Translator: Desarrollador <dev@example.com>\n"
+"Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "What is it?"
+msgid "¿Qué es?"
 msgstr "¿Qué es?"
 
-msgid "Level System"
+msgid "Sistema de Niveles"
 msgstr "Sistema de Niveles"
 
-msgid "Experiences"
+msgid "Experiencias"
 msgstr "Experiencias"
 
-msgid "Sign up"
+msgid "Registrarse"
 msgstr "Registrarse"
 
-msgid "Language"
+msgid "Idioma"
 msgstr "Idioma"
-
-msgid "English"
-msgstr "Inglés"
-
-msgid "Spanish"
-msgstr "Español"

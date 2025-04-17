@@ -1,0 +1,60 @@
+# Cómo instalar Gettext en Windows para Django
+
+## 1. Descargar Gettext
+
+1. Ve a esta página: https://mlocati.github.io/articles/gettext-iconv-windows.html
+2. Descarga el instalador para tu versión de Windows (32 o 64 bits)
+   - Para la mayoría de computadoras modernas, selecciona la versión de 64 bits
+
+## 2. Instalar Gettext
+
+1. Ejecuta el instalador descargado
+2. **IMPORTANTE**: Durante la instalación, asegúrate de marcar la opción "Add gettext tools to path"
+   - Esto agregará automáticamente gettext al PATH del sistema
+
+## 3. Verificar la instalación
+
+1. Cierra todas las ventanas de terminal o VSCode que tengas abiertas
+2. Abre una nueva ventana de terminal (cmd o PowerShell)
+3. Escribe el siguiente comando para verificar que gettext esté correctamente instalado:
+   ```
+   msgfmt --version
+   ```
+4. Deberías ver la versión de gettext instalada
+
+## 4. Compilar las traducciones de Django
+
+1. En la terminal, navega a la carpeta de tu proyecto
+2. Elimina los archivos .mo existentes que puedan estar corruptos:
+   ```
+   del /Q locale\es\LC_MESSAGES\django.mo
+   del /Q locale\en\LC_MESSAGES\django.mo
+   ```
+3. Compila las traducciones:
+   ```
+   python manage.py compilemessages
+   ```
+4. Si todo funciona correctamente, deberías ver un mensaje indicando que las traducciones fueron compiladas satisfactoriamente
+
+## 5. Iniciar el servidor Django
+
+```
+python manage.py runserver
+```
+
+Ahora el cambio de idiomas debería funcionar correctamente.
+
+## Añadir manualmente al PATH (solo si la opción durante la instalación no funcionó)
+
+Si no marcaste la opción durante la instalación o si necesitas añadirlo manualmente:
+
+1. Busca en el menú de inicio "Editar las variables de entorno del sistema"
+2. Haz clic en el botón "Variables de entorno..."
+3. En la sección "Variables del sistema", busca la variable "Path" y selecciónala
+4. Haz clic en "Editar..."
+5. Haz clic en "Nuevo" y añade la ruta donde se instaló gettext, usualmente es:
+   ```
+   C:\Program Files\gettext-tools\bin
+   ```
+6. Haz clic en "Aceptar" en todas las ventanas
+7. Reinicia cualquier terminal o VSCode que tengas abierto

@@ -6,7 +6,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 # URLs que no necesitan ser traducidas
 urlpatterns = [
-    # URLs para cambiar idioma
+    # URLs para cambiar idioma - Esto debe estar FUERA de i18n_patterns
     path('i18n/', include('django.conf.urls.i18n')),
 ]
 
