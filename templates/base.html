@@ -1,0 +1,100 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'es' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hypergamy{% endblock %}</title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="{% block meta_description %}Hypergamy - Una app de citas gamificada basada en el valor y la conquista{% endblock %}">
+    <meta name="theme-color" content="#121212">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gold-royal': '#FFD700',
+                        'deep-carbon': '#121212',
+                        'power-fuchsia': '#E91E63',
+                        'midnight-blue': '#1A237E',
+                        'lust-red': '#C62828',
+                        'soft-smoke': '#F5F5F5',
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                        'accent': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="{% static 'css/hipergamia-colors.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-deep-carbon text-soft-smoke font-sans min-h-screen flex flex-col">
+    <!-- Header - Incluimos el navbar desde el parcial -->
+    {% include 'partials/navbar.html' %}
+    
+    <!-- Contenido principal -->
+    <main class="flex-grow mt-16">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-soft-smoke py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-gold-royal mb-4">Hypergamy</h3>
+                    <p class="text-sm text-gray-400">{% trans "Una app de citas gamificada basada en el valor y la conquista" %}</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">{% trans "Enlaces" %}</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-gold-royal transition-colors">{% trans "Términos y Condiciones" %}</a></li>
+                        <li><a href="#" class="hover:text-gold-royal transition-colors">{% trans "Política de Privacidad" %}</a></li>
+                        <li><a href="#" class="hover:text-gold-royal transition-colors">{% trans "FAQ" %}</a></li>
+                        <li><a href="#" class="hover:text-gold-royal transition-colors">{% trans "Contacto" %}</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">{% trans "Síguenos" %}</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-soft-smoke hover:text-gold-royal transition-colors"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-soft-smoke hover:text-gold-royal transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-soft-smoke hover:text-gold-royal transition-colors"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-soft-smoke hover:text-gold-royal transition-colors"><i class="fab fa-tiktok fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-500">
+                <p>&copy; {% now "Y" %} Hypergamy. {% trans "Todos los derechos reservados." %}</p>
+            </div>
+        </div>
+    </footer>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

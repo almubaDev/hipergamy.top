@@ -1,0 +1,141 @@
+/**
+ * Paleta de colores de Hipérgamia
+ * Este archivo define las variables CSS con la paleta de colores principal
+ * que serán utilizadas en todo el proyecto.
+ */
+
+ :root {
+    /* Colores principales */
+    --gold-royal: #FFD700;     /* Dorado imperial - Niveles altos, botones premium */
+    --deep-carbon: #121212;    /* Negro carbón - Fondo principal, elegancia, misterio */
+    --power-fuchsia: #E91E63;  /* Rosa fucsia intenso - Detalles femeninos, acentos seductores */
+    --midnight-blue: #1A237E;  /* Azul noche oscuro - Texto, bordes, estabilidad visual */
+    --lust-red: #C62828;       /* Rojo pasión sobrio - Alertas, emociones fuertes, atracción */
+    --soft-smoke: #F5F5F5;     /* Blanco humo suave - Contrastes suaves, textos secundarios */
+    
+    /* Variables para uso específico */
+    --bg-primary: var(--deep-carbon);
+    --text-primary: var(--soft-smoke);
+    --text-secondary: rgba(245, 245, 245, 0.7);
+    --accent: var(--gold-royal);
+    --accent-hover: #E6C200; /* Dorado un poco más oscuro para hover */
+    --cta-primary: var(--gold-royal);
+    --cta-secondary: var(--power-fuchsia);
+    --cta-danger: var(--lust-red);
+    --border-color: #2A2A2A; /* Un gris oscuro para bordes sutiles */
+  }
+  
+  /* Clases de utilidad para colores de texto */
+  .text-gold {
+    color: var(--gold-royal);
+  }
+  
+  .text-fuchsia {
+    color: var(--power-fuchsia);
+  }
+  
+  .text-midnight {
+    color: var(--midnight-blue);
+  }
+  
+  .text-lust {
+    color: var(--lust-red);
+  }
+  
+  /* Clases de utilidad para fondos */
+  .bg-gold {
+    background-color: var(--gold-royal);
+  }
+  
+  .bg-carbon {
+    background-color: var(--deep-carbon);
+  }
+  
+  .bg-fuchsia {
+    background-color: var(--power-fuchsia);
+  }
+  
+  .bg-midnight {
+    background-color: var(--midnight-blue);
+  }
+  
+  .bg-lust {
+    background-color: var(--lust-red);
+  }
+  
+  /* Efectos especiales */
+  .glow-gold {
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+  }
+  
+  .premium-gradient {
+    background: linear-gradient(45deg, var(--gold-royal), #FFC107);
+  }
+  
+  /* Botones */
+  .btn-primary {
+    background-color: var(--gold-royal);
+    color: var(--deep-carbon);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+  }
+  
+  .btn-secondary {
+    background-color: var(--power-fuchsia);
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #D81B60;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
+  }
+  
+  .btn-danger {
+    background-color: var(--lust-red);
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-danger:hover {
+    background-color: #B71C1C;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(198, 40, 40, 0.3);
+  }
+  
+  /* Bordes y separadores */
+  .border-subtle {
+    border-color: var(--border-color);
+  }
+  
+  /* Niveles de usuarios */
+  .level-badge {
+    padding: 0.2em 0.6em;
+    border-radius: 9999px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+  
+  .level-regular {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+  }
+  
+  .level-premium {
+    background-color: var(--gold-royal);
+    color: var(--deep-carbon);
+  }
+  
+  .level-exclusive {
+    background: linear-gradient(45deg, var(--gold-royal), var(--power-fuchsia));
+    color: var(--deep-carbon);
+  }

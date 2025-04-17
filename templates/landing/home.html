@@ -1,0 +1,685 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Hypergamy - {% trans "Una app de citas gamificada basada en el valor y la conquista" %}{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* Estilos específicos para la landing */
+    .title-font {
+        font-family: 'Playfair Display', serif;
+        letter-spacing: -0.03em;
+    }
+    
+    .cinzel-font {
+        font-family: 'Cinzel Decorative', cursive;
+    }
+    
+    .body-font {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .hero-gradient {
+        background: linear-gradient(135deg, rgba(18, 18, 18, 0.9) 0%, rgba(26, 35, 126, 0.5) 100%);
+    }
+    
+    .gold-glow {
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+    }
+    
+    .fuchsia-glow {
+        filter: drop-shadow(0 0 8px rgba(233, 30, 99, 0.6));
+    }
+    
+    .parallax {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    @media (max-width: 768px) {
+        .parallax {
+            background-attachment: scroll; /* Desactivar parallax en móvil */
+        }
+    }
+    
+    .level-bar {
+        height: 400px;
+        background: linear-gradient(to top, #121212, #1A237E, #E91E63, #FFD700);
+        border-radius: 8px;
+        position: relative;
+    }
+    
+    .level-marker {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: #121212;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transform: translateX(-50%);
+        transition: all 0.3s ease;
+    }
+    
+    .level-marker:hover {
+        transform: translateX(-50%) scale(1.1);
+        z-index: 10;
+        box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    .pulse-anim {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in-element {
+        opacity: 0;
+        animation: fadeIn 0.8s ease forwards;
+    }
+    
+    /* Efectos de hover para botones */
+    .btn-hover-effect {
+        transition: all 0.3s ease;
+    }
+    
+    .btn-hover-effect:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
+    }
+    
+    /* Efectos para formulario */
+    .form-input {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    
+    .form-input:focus {
+        border-color: #FFD700;
+        box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    }
+    
+    .form-input.valid {
+        border-color: #4CAF50;
+    }
+    
+    .form-input.invalid {
+        border-color: #C62828;
+    }
+    
+    /* Gradientes especiales */
+    .premium-gradient {
+        background: linear-gradient(135deg, #FFD700, #E91E63);
+    }
+    
+    .exclusive-gradient {
+        background: linear-gradient(135deg, #121212, #1A237E, #FFD700);
+    }
+    
+    /* Backgrounds con blur */
+    .glass-card {
+        background-color: rgba(18, 18, 18, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Animación del scroll indicator */
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+        40% { transform: translateY(-15px) translateX(-50%); }
+        60% { transform: translateY(-7px) translateX(-50%); }
+    }
+    
+    .bounce {
+        animation: bounce 2s infinite;
+    }
+    
+    /* Animaciones de entrada en scroll */
+    .anim-delay-200 { animation-delay: 0.2s; }
+    .anim-delay-400 { animation-delay: 0.4s; }
+    .anim-delay-600 { animation-delay: 0.6s; }
+    .anim-delay-800 { animation-delay: 0.8s; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Principal -->
+<section class="relative min-h-screen flex items-center overflow-hidden" style="background-color: #121212;">
+    <!-- Elementos decorativos de fondo animados -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-midnight-blue rounded-full filter blur-3xl opacity-20" style="transform: translate(-30%, -30%)"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-power-fuchsia rounded-full filter blur-3xl opacity-10" style="transform: translate(40%, 40%)"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-16 md:py-24 z-10">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 text-center md:text-left mb-12 md:mb-0 fade-in-element">
+                <h1 class="title-font text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
+                    <span class="text-gold-royal glow-gold fade-in-element anim-delay-200">{% trans "¿Estás en la base..." %} </span>
+                    <span class="text-soft-smoke block md:inline fade-in-element anim-delay-400">{% trans "o en la cima" %} </span>
+                    <span class="text-power-fuchsia fade-in-element anim-delay-600">{% trans "del juego?" %}</span>
+                </h1>
+                <p class="text-xl mb-10 text-gray-300 body-font fade-in-element anim-delay-800">
+                    {% trans "Una app de citas basada en la conquista por mérito, donde tu nivel determina tu alcance, tu acceso, tu poder adquisitivo y tu valor percibido. Aquí el estatus es visible y el esfuerzo se recompensa." %}
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-6 fade-in-element" style="animation-delay: 1s;">
+                    <a href="#contact-form" class="btn-primary px-8 py-3 rounded-full text-lg btn-hover-effect pulse-anim">{% trans "Juega ahora" %}</a>
+                    <a href="#how-it-works" class="bg-transparent border-2 border-gold-royal text-gold-royal hover:bg-gold-royal hover:text-deep-carbon transition-all px-8 py-3 rounded-full text-lg btn-hover-effect">{% trans "¿Cómo funciona?" %}</a>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 relative fade-in-element" style="animation-delay: 0.5s;">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-power-fuchsia opacity-30"></div>
+                <img src="{% static 'images/siluet_man.png' %}" alt="Silueta masculina" class="w-full h-auto max-h-[600px] object-contain fuchsia-glow">
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-deep-carbon to-transparent"></div>
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center hidden md:block fade-in-element" style="animation-delay: 1.2s;">
+        <p class="text-gray-400 mb-2 text-sm">{% trans "Descubre más" %}</p>
+        <div class="bounce absolute left-1/2">
+            <i class="fas fa-chevron-down text-gold-royal"></i>
+        </div>
+    </div>
+</section>
+
+<!-- ¿Qué es Hypergamy? -->
+<section id="what-is" class="py-20 bg-gradient-to-b from-deep-carbon to-gray-900 relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-10">
+        <div class="absolute top-0 right-0 w-72 h-72 bg-gold-royal rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-midnight-blue rounded-full filter blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-4 z-10 relative">
+        <h2 class="title-font text-4xl md:text-5xl font-bold mb-16 text-center text-gold-royal fade-in-element">{% trans "¿Qué es Hypergamy?" %}</h2>
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 mb-12 md:mb-0 relative parallax fade-in-element">
+                <div class="absolute inset-0 bg-gradient-to-r from-midnight-blue to-transparent opacity-30"></div>
+                <img src="{% static 'images/siluet_woman.png' %}" alt="Silueta femenina" class="w-full h-auto max-h-[600px] object-contain gold-glow transform transition-transform hover:scale-105 duration-700">
+            </div>
+
+            <div class="w-full md:w-1/2 md:pl-12">
+                <div class="glass-card p-6 md:p-8 rounded-xl mb-10 fade-in-element anim-delay-200">
+                    <h3 class="cinzel-font text-2xl mb-4 text-power-fuchsia flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-power-fuchsia mr-3 flex items-center justify-center">
+                            <i class="fas fa-venus text-white"></i>
+                        </span>
+                        {% trans "Para mujeres" %}
+                    </h3>
+                    <p class="text-lg mb-6 text-gray-300 body-font">{% trans "Comienza como una mujer de alto valor. En nivel 1, pero con el poder de seducir, convencer y escalar. Tu carisma, feminidad y estrategia definen tu ascenso." %}</p>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                            <span class="text-gold-royal mr-3 text-xl">✓</span>
+                            <span>{% trans "Chatea y recibe puntos de atención de los jugadores" %}</span>
+                        </li>
+                        <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                            <span class="text-gold-royal mr-3 text-xl">✓</span>
+                            <span>{% trans "Utiliza los puntos de atención o paga para subir de nivel, tu nuevo nivel te permitirá conocer a mejores jugadores" %}</span>
+                        </li>
+                        <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                            <span class="text-gold-royal mr-3 text-xl">✓</span>
+                            <span>{% trans "Te aseguramos a los mejores. Solo podrán interactuar contigo hombres que se encuentren en tu nivel y hasta dos niveles superiores al tuyo" %}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 md:p-8 rounded-xl fade-in-element anim-delay-400">
+                    <h3 class="cinzel-font text-2xl mb-4 text-gold-royal flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-gold-royal mr-3 flex items-center justify-center">
+                            <i class="fas fa-mars text-deep-carbon"></i>
+                        </span>
+                        {% trans "Para hombres" %}
+                    </h3>
+                    <p class="text-lg mb-6 text-gray-300 body-font">{% trans "Un hombre de alto valor invierte en sí mismo. Tu nivel dentro de Hypergamy refleja tu estatus, tu determinación y tu capacidad adquisitiva. Cuanto más alto estés, más acceso tendrás a jugadoras de alto nivel." %}</p>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                            <span class="text-power-fuchsia mr-3 text-xl">✓</span>
+                            <span>{% trans "Chatea con mujeres de niveles anteriores al tuyo" %}</span>
+                        </li>
+                        <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                            <span class="text-power-fuchsia mr-3 text-xl">✓</span>
+                            <span>{% trans "Chatea, conquista, juega, enamórate y aprueba jugadoras mediante puntos de atención" %}</span>
+                        </li>
+                        <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                            <span class="text-power-fuchsia mr-3 text-xl">✓</span>
+                            <span>{% trans "Accede al top 1000+ (solo un jugador por nivel y todas las jugadoras de niveles anteriores)" %}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sistema de Niveles -->
+<section id="how-it-works" class="py-20 bg-deep-carbon relative overflow-hidden">
+    <!-- Fondo con degradado sutil -->
+    <div class="absolute inset-0 bg-gradient-to-br from-deep-carbon via-midnight-blue to-deep-carbon opacity-50"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <h2 class="title-font text-4xl md:text-5xl font-bold mb-16 text-center text-gold-royal fade-in-element">{% trans "Sistema de Niveles" %}</h2>
+        
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <!-- Barra de niveles -->
+            <div class="w-full md:w-1/4 mb-12 md:mb-0 fade-in-element">
+                <div class="relative mx-auto" style="width: 120px; height: 400px;">
+                    <!-- Fondo de la barra con degradado -->
+                    <div class="absolute inset-0 rounded-full" 
+                         style="background: linear-gradient(to top, #1A237E, #6A1B9A, #C2185B, #FFD700); width: 60px; left: 50%; transform: translateX(-50%);">
+                    </div>
+                    
+                    <!-- Marcadores de nivel -->
+                    <div class="absolute flex items-center justify-center w-16 h-16 rounded-full bg-white text-deep-carbon font-bold text-lg border-4 border-deep-carbon shadow-lg transform -translate-x-1/2 hover:scale-110 transition-transform z-10"
+                         style="left: 50%; bottom: 0%; margin-bottom: -8px;">
+                        <span>1</span>
+                    </div>
+                    
+                    <div class="absolute flex items-center justify-center w-12 h-12 rounded-full bg-gray-300 text-deep-carbon font-bold border-2 border-deep-carbon shadow-lg transform -translate-x-1/2 hover:scale-110 transition-transform z-10"
+                         style="left: 50%; bottom: 22%;">
+                        <span>10</span>
+                    </div>
+                    
+                    <div class="absolute flex items-center justify-center w-14 h-14 rounded-full bg-power-fuchsia text-white font-bold border-2 border-deep-carbon shadow-lg transform -translate-x-1/2 hover:scale-110 transition-transform z-10"
+                         style="left: 50%; bottom: 45%;">
+                        <span>100</span>
+                    </div>
+                    
+                    <div class="absolute flex items-center justify-center w-16 h-16 rounded-full bg-power-fuchsia text-white font-bold border-2 border-deep-carbon shadow-lg transform -translate-x-1/2 hover:scale-110 transition-transform z-10"
+                         style="left: 50%; bottom: 68%;">
+                        <span>500</span>
+                    </div>
+                    
+                    <div class="absolute flex items-center justify-center w-20 h-20 rounded-full bg-gold-royal text-deep-carbon font-bold text-lg border-4 border-deep-carbon shadow-lg transform -translate-x-1/2 hover:scale-110 transition-transform pulse-anim z-20"
+                         style="left: 50%; bottom: 90%;">
+                        <span>1000+</span>
+                    </div>
+                    
+                    <!-- Silueta masculina en nivel 1000+ -->
+                    <div class="absolute" style="left: 23%; bottom: 90%; z-index: 5;">
+                        <img style='border-radius:50%;' src="{% static 'images/suit.png' %}" alt="Nivel exclusivo" class="h-24 gold-glow">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-3/4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Niveles 1-999 -->
+                    <div class="glass-card rounded-lg p-8 border border-midnight-blue border-opacity-50 transform transition-all duration-500 hover:translate-y-[-10px] fade-in-element">
+                        <h3 class="text-2xl font-bold mb-4 text-gold-royal flex items-center">
+                            <span class="inline-block w-8 h-8 rounded-full bg-gold-royal mr-4 flex items-center justify-center text-deep-carbon">
+                                <i class="fas fa-users"></i>
+                            </span>
+                            {% trans "Niveles 1-999" %}
+                        </h3>
+                        
+                        <p class="text-gray-300 mb-6 body-font">
+                            {% trans "Niveles compartidos donde múltiples usuarios pueden ocupar la misma posición. Subir de nivel significa:" %}
+                        </p>
+                        
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-gold-royal mr-3 text-xl">•</span>
+                                <span>{% trans "Para ellas: mejores jugadores para conquistar." %}</span>
+                            </li>
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-gold-royal mr-3 text-xl">•</span>
+                                <span>{% trans "Para ellos: más mujeres que seducir." %}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Niveles 1000+ -->
+                    <div class="glass-card rounded-lg p-8 border border-gold-royal border-opacity-50 transform transition-all duration-500 hover:translate-y-[-10px] fade-in-element" 
+                         style="background: linear-gradient(135deg, rgba(18, 18, 18, 0.9), rgba(26, 35, 126, 0.3));">
+                        <h3 class="text-2xl font-bold mb-4 text-power-fuchsia flex items-center">
+                            <span class="inline-block w-8 h-8 rounded-full bg-power-fuchsia mr-4 flex items-center justify-center text-white">
+                                <i class="fas fa-crown"></i>
+                            </span>
+                            {% trans "Niveles 1000+" %}
+                        </h3>
+                        
+                        <p class="text-gray-300 mb-6 body-font">
+                            {% trans "Niveles exclusivos donde solo un usuario puede ocupar cada posición." %}
+                        </p>
+                        
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-power-fuchsia mr-3 text-xl">•</span>
+                                <span>{% trans "Liberación de visibilidad de todos los competidores o competidoras." %}</span>
+                            </li>
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-power-fuchsia mr-3 text-xl">•</span>
+                                <span>{% trans "Filtros exclusivos de perfiles." %}</span>
+                            </li>
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-power-fuchsia mr-3 text-xl">•</span>
+                                <span>{% trans "Insignia de nivel exclusivo visible para todos." %}</span>
+                            </li>
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-power-fuchsia mr-3 text-xl">•</span>
+                                <span>{% trans "Zona VIP, donde solo encontrarás jugadores de nivel 1000+ para compartir." %}</span>
+                            </li>
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-power-fuchsia mr-3 text-xl">•</span>
+                                <span>{% trans "Si gustas, te presentaremos en nuestras redes sociales, para que tu alcance llegue más lejos." %}</span>
+                            </li>
+                            <li class="flex items-start transform transition-all hover:translate-x-2 duration-300">
+                                <span class="text-power-fuchsia mr-3 text-xl">•</span>
+                                <span>{% trans "Sorpresas, nuevas funciones y más..." %}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Mensaje sobre la conquista -->
+                <div class="mt-10 p-8 rounded-lg relative overflow-hidden fade-in-element transform transition-all duration-500 hover:translate-y-[-5px]">
+                    <!-- Fondo con gradiente -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-gold-royal via-power-fuchsia to-midnight-blue opacity-20 rounded-lg"></div>
+                    
+                    <!-- Borde con brillo -->
+                    <div class="absolute inset-0 rounded-lg border border-gold-royal glow-gold opacity-50"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold mb-4 text-gold-royal">{% trans "La conquista es un juego de estrategia" %}</h3>
+                        <p class="text-lg text-gray-300 body-font">
+                            {% trans "Hypergamy refleja la realidad del mercado romántico: el valor, la estrategia y la competencia determinan el éxito. Aquí, cada nivel conquistado refleja tu capacidad de inversión y tu lugar en la jerarquía del deseo. Subes, y con ello accedes a perfiles más selectos." %}
+                        </p>
+                    </div>
+                    <div class="relative z-1 pt-8">
+                        <h3 class="text-2xl font-bold mb-4 text-gold-royal">{% trans "Niveles 500+ activan la sección 'Jardín Secreto'." %}</h3>
+                        <p class="text-lg text-gray-300 body-font">
+                            {% trans "Sección donde los competidores podrán comerciar su contenido exclusivo, que les permitirá subir más rápido de nivel." %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonios -->
+<section id="testimonials" class="py-20 bg-gradient-to-b from-gray-900 to-deep-carbon">
+    <div class="container mx-auto px-4">
+        <h2 class="title-font text-4xl md:text-5xl font-bold mb-16 text-center text-gold-royal fade-in-element">{% trans "Experiencias en Hypergamy" %}</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card rounded-lg p-6 relative overflow-hidden transform transition-all hover:scale-105 duration-500 fade-in-element">
+                <div class="absolute -bottom-6 -right-6 opacity-10">
+                    <img src="{% static 'images/siluet_woman.png' %}" alt="" class="h-32">
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center mb-4">
+                        <div class="level-badge level-premium mr-2">{% trans "Nivel" %} 78</div>
+                        <h3 class="font-bold">Laura M.</h3>
+                    </div>
+                    <p class="text-gray-300 italic body-font">
+                        {% trans ""Subir de nivel fue como desbloquear un nuevo mundo. No todos los hombres valen la pena... pero los que lo hacen, están aquí."" %}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="glass-card rounded-lg p-6 relative overflow-hidden transform transition-all hover:scale-105 duration-500 fade-in-element anim-delay-200">
+                <div class="absolute -bottom-6 -right-6 opacity-10">
+                    <img src="{% static 'images/siluet_man.png' %}" alt="" class="h-32">
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center mb-4">
+                        <div class="level-badge level-exclusive mr-2">{% trans "Nivel" %} 1204</div>
+                        <h3 class="font-bold">Marcos T.</h3>
+                    </div>
+                    <p class="text-gray-300 italic body-font">
+                        {% trans ""Invertí en mi nivel porque sabía lo que valgo. Ahora tengo acceso a las mujeres que antes ni me miraban. Aquí, el valor es visible."" %}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="glass-card rounded-lg p-6 relative overflow-hidden transform transition-all hover:scale-105 duration-500 fade-in-element anim-delay-400">
+                <div class="absolute -bottom-6 -right-6 opacity-10">
+                    <img src="{% static 'images/siluet_woman.png' %}" alt="" class="h-32">
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center mb-4">
+                        <div class="level-badge level-premium mr-2">{% trans "Nivel" %} 142</div>
+                        <h3 class="font-bold">Diana V.</h3>
+                    </div>
+                    <p class="text-gray-300 italic body-font">
+                        {% trans ""Aquí los hombres se esfuerzan. Eso cambia todo. Ya no compito por atención; ellos compiten por mí."" %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA de reserva -->
+<section id="contact-form" class="py-20 bg-midnight-blue relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="flex justify-between h-full">
+            <img src="{% static 'images/siluet_man.png' %}" alt="" class="h-full object-contain">
+            <img src="{% static 'images/siluet_woman.png' %}" alt="" class="h-full object-contain">
+        </div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="title-font text-3xl md:text-4xl font-bold mb-6 text-gold-royal fade-in-element">{% trans "Sé parte del juego antes que comience la guerra" %}</h2>
+            <p class="text-xl mb-10 text-gray-300 body-font fade-in-element anim-delay-200">
+                {% trans "Forma parte del prelanzamiento más exclusivo. Cuanto antes entres, más alto podrás empezar." %}
+            </p>
+            
+            <div class="glass-card rounded-lg p-8 fade-in-element anim-delay-400">
+                <form class="space-y-6" id="reservation-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">{% trans "Nombre" %}</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold-royal form-input" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">{% trans "Email" %}</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold-royal form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">{% trans "Teléfono" %}</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold-royal form-input">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-3">{% trans "Género" %}</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center">
+                                    <input type="radio" name="gender" value="male" class="mr-2" required>
+                                    <span>{% trans "Hombre" %}</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="gender" value="female" class="mr-2">
+                                    <span>{% trans "Mujer" %}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="whatsapp" value="1" class="mr-2">
+                            <span class="flex items-center"><i class="fab fa-whatsapp text-green-500 mr-1"></i> {% trans "Avísame por WhatsApp" %}</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary px-8 py-3 rounded-full text-lg w-full btn-hover-effect pulse-anim">{% trans "Reservar acceso" %}</button>
+                    
+                    <div id="form-success" class="hidden bg-green-900 bg-opacity-50 text-green-300 p-4 rounded-lg">
+                        <p class="text-center"><i class="fas fa-check-circle mr-2"></i> {% trans "¡Gracias! Te avisaremos cuando Hypergamy dé inicio." %}</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cierre emocional -->
+<section class="py-20 bg-deep-carbon relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="relative h-[400px] flex justify-center items-center fade-in-element">
+                <div class="absolute inset-0 flex justify-between items-center">
+                    <div class="w-1/2 flex justify-end pr-4">
+                        <img src="{% static 'images/siluet_man.png' %}" alt="" class="h-[350px] object-contain gold-glow transform transition-transform hover:scale-105 duration-700">
+                    </div>
+                    <div class="w-1/2 flex justify-start pl-4">
+                        <img src="{% static 'images/siluet_woman.png' %}" alt="" class="h-[350px] object-contain fuchsia-glow transform transition-transform hover:scale-105 duration-700">
+                    </div>
+                </div>
+                
+                <div class="text-center z-10 glass-card p-8 rounded-lg">
+                    <h2 class="cinzel-font text-3xl md:text-5xl font-bold mb-8 leading-tight">
+                        <span class="text-gold-royal fade-in-element">{% trans "No todos nacen ganadores." %}</span>
+                        <span class="text-power-fuchsia block fade-in-element anim-delay-200">{% trans "Algunos se convierten" %}</span>
+                        <span class="text-soft-smoke block fade-in-element anim-delay-400">{% trans "en uno." %}</span>
+                    </h2>
+                    
+                    <a href="#contact-form" class="btn-primary px-12 py-4 rounded-full text-xl inline-block pulse-anim btn-hover-effect fade-in-element anim-delay-600">{% trans "Reclama tu lugar en la jerarquía" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Activar efecto parallax para elementos con clase .parallax
+    window.addEventListener('scroll', function() {
+        // Solo activar si no estamos en móvil
+        if (window.innerWidth > 768) {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            parallaxElements.forEach(element => {
+                const scrollPosition = window.pageYOffset;
+                element.style.transform = 'translateY(' + scrollPosition * 0.1 + 'px)';
+            });
+        }
+    });
+    
+    // Animación de entrada en scroll
+    const fadeElements = document.querySelectorAll('.fade-in-element');
+    
+    // Función para verificar si un elemento está en el viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+            rect.bottom >= 0
+        );
+    }
+    
+    // Función para manejar animaciones de scroll
+    function handleScrollAnimations() {
+        fadeElements.forEach(element => {
+            if (isElementInViewport(element) && !element.classList.contains('animated')) {
+                element.classList.add('animated');
+                element.style.opacity = 1;
+            }
+        });
+    }
+    
+    // Listener para scroll
+    window.addEventListener('scroll', handleScrollAnimations);
+    // Ejecutar al cargar para elementos inicialmente visibles
+    window.addEventListener('load', handleScrollAnimations);
+    
+    // Validación de formulario
+    const form = document.getElementById('reservation-form');
+    const formSuccess = document.getElementById('form-success');
+    const inputs = form.querySelectorAll('input[required]');
+    
+    // Validación de inputs
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.value.trim() !== '') {
+                if (this.type === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailRegex.test(this.value)) {
+                        this.classList.add('valid');
+                        this.classList.remove('invalid');
+                    } else {
+                        this.classList.add('invalid');
+                        this.classList.remove('valid');
+                    }
+                } else {
+                    this.classList.add('valid');
+                    this.classList.remove('invalid');
+                }
+            } else {
+                this.classList.add('invalid');
+                this.classList.remove('valid');
+            }
+        });
+    });
+    
+    // Manejo de envío del formulario
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Verificar validez
+        let isValid = true;
+        inputs.forEach(input => {
+            if (input.value.trim() === '') {
+                input.classList.add('invalid');
+                isValid = false;
+            }
+        });
+        
+        if (isValid) {
+            // En un proyecto real, aquí enviarías los datos al servidor
+            // Por ahora, simulamos un envío exitoso
+            setTimeout(() => {
+                formSuccess.classList.remove('hidden');
+                form.reset();
+                inputs.forEach(input => {
+                    input.classList.remove('valid');
+                });
+                
+                // Ocultar el mensaje después de 5 segundos
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                }, 5000);
+            }, 1000);
+        }
+    });
+    
+    // Smooth scrolling para anchors
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Ajuste para la navbar
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
