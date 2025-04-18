@@ -162,8 +162,8 @@
 <!-- Hero Principal -->
 <section class="relative min-h-screen flex items-center overflow-hidden" style="background-color: #121212;">
     <div style="background:#222;color:white;padding:10px;">
-    <p><strong>{% trans "Idioma activo:" %}</strong> {{ LANGUAGE_CODE }}</p>
-    <p><strong>{% trans "Texto traducido:" %}</strong> {% trans "Registrarse" %}</p>
+    <p><strong>Idioma activo:</strong> {{ LANGUAGE_CODE }}</p>
+    <p><strong>Texto traducido:</strong> {% trans "Registrarse" %}</p>
 </div>
     <!-- Elementos decorativos de fondo animados -->
     <div class="absolute inset-0 overflow-hidden">
@@ -435,7 +435,7 @@
                         <h3 class="font-bold">Laura M.</h3>
                     </div>
                     <p class="text-gray-300 italic body-font">
-                        {% trans "Subir de nivel fue como desbloquear un nuevo mundo. No todos los hombres valen la pena... pero los que lo hacen, están aquí." %}
+                        "{% trans "Subir de nivel fue como desbloquear un nuevo mundo. No todos los hombres valen la pena... pero los que lo hacen, están aquí." %}"
                     </p>
                 </div>
             </div>

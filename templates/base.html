@@ -1,14 +1,15 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'es' }}">
+<html lang="{{ request.LANGUAGE_CODE|default:'en' }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Hypergamy{% endblock %}</title>
     
     <!-- Meta tags -->
-    <meta name="description" content="{% block meta_description %}Hypergamy - Una app de citas gamificada basada en el valor y la conquista{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% trans "Una app de citas gamificada basada en el valor y la conquista" %}{% endblock %}">
     <meta name="theme-color" content="#121212">
     
     <!-- Favicon -->
